@@ -17,20 +17,38 @@ router.get("/", ensureAuthenticated, async (req, res) => {
 const endDate =  req.query.endDate || today.toISOString().split("T")[0];
 const startDate = req.query.startDate || priorDate.toISOString().split("T")[0];
 
+    // const [reports] = await pool.query(`
+    //   SELECT
+    //       st.StoreName,
+    //       DATE(sh.SaleDate) AS SaleDay,
+    //       SUM(sd.LineTotal) AS NetSales,
+    //       SUM(sd.Quantity * sd.CostPrice) AS COGS,
+    //       SUM(sd.LineTotal) - SUM(sd.Quantity * sd.CostPrice) AS GrossProfit
+    //   FROM SalesHeader sh
+    //   INNER JOIN SalesDetail sd ON sh.SaleID = sd.SaleID
+    //   INNER JOIN Stores st ON sh.StoreID = st.StoreID
+    //   WHERE DATE(sh.SaleDate) BETWEEN ? AND ?
+    //   GROUP BY st.StoreName, DATE(sh.SaleDate)
+    //   ORDER BY SaleDay DESC, st.StoreName
+    // `, [startDate, endDate]);
+
     const [reports] = await pool.query(`
-      SELECT
-          st.StoreName,
-          DATE(sh.SaleDate) AS SaleDay,
-          SUM(sd.LineTotal) AS NetSales,
-          SUM(sd.Quantity * sd.CostPrice) AS COGS,
-          SUM(sd.LineTotal) - SUM(sd.Quantity * sd.CostPrice) AS GrossProfit
-      FROM SalesHeader sh
-      INNER JOIN SalesDetail sd ON sh.SaleID = sd.SaleID
-      INNER JOIN Stores st ON sh.StoreID = st.StoreID
-      WHERE DATE(sh.SaleDate) BETWEEN ? AND ?
-      GROUP BY st.StoreName, DATE(sh.SaleDate)
-      ORDER BY SaleDay DESC, st.StoreName
-    `, [startDate, endDate]);
+        SELECT
+            st.StoreName,
+            DATE(sh.SaleDate) AS SaleDay,
+            SUM(sd.LineTotal) AS NetSales,
+            SUM(sd.Quantity * sd.CostPrice) AS COGS,
+            SUM(sd.LineTotal) - SUM(sd.Quantity * sd.CostPrice) AS GrossProfit
+        FROM SalesHeader sh
+        INNER JOIN SalesDetail sd ON sh.SaleID = sd.SaleID
+        INNER JOIN Stores st ON sh.StoreID = st.StoreID
+        WHERE sh.SaleDate >= ?
+          AND sh.SaleDate < DATE_ADD(?, INTERVAL 1 DAY)
+        GROUP BY st.StoreName, DATE(sh.SaleDate)
+        ORDER BY SaleDay DESC, st.StoreName
+      `, [startDate, endDate]);
+
+
 
     const [topProducts] = await pool.query(`
       SELECT
