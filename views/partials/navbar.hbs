@@ -1,0 +1,11 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/dashboard">Supermarket Retail System</a>
+    <div class="d-flex text-white">
+      {{#if user}}
+        <span class="me-3">Welcome, {{user.fullName}}</span>
+        <a href="/logout" class="btn btn-outline-light btn-sm">Logout</a>
+      {{/if}}
+    </div>
+  </div>
+</nav>

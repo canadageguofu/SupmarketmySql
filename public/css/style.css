@@ -1,0 +1,41 @@
+body {
+  background-color: #f8f9fa;
+}
+
+.card {
+  border-radius: 10px;
+}
+
+.table th,
+.table td {
+  vertical-align: middle;
+}
+
+.report-card {
+  height: 100%;
+}
+
+.chart-box {
+  position: relative;
+  height: 320px;
+  width: 100%;
+}
+
+.chart-box-wide {
+  height: 320px;
+}
+
+canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.card h5 {
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.table-sm td,
+.table-sm th {
+  font-size: 0.9rem;
+}

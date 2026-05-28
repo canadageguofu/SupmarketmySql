@@ -1,0 +1,320 @@
+<div class="container mt-2">
+  <h2>Reports</h2>
+
+  <form method="GET" action="/reports" class="row g-3 mb-4">
+    <div class="col-md-3">
+      <label class="form-label">Start Date</label>
+      <input type="date" name="startDate" class="form-control" value="{{startDate}}">
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">End Date</label>
+      <input type="date" name="endDate" class="form-control" value="{{endDate}}">
+    </div>
+    <div class="col-md-3 align-self-end">
+      <button type="submit" class="btn btn-dark">Run Report</button>
+    </div>
+  </form>
+
+  <div class="row">
+    <div class="col-md-6 mb-4">
+      <div class="card report-card">
+        <div class="card-body">
+          <h5>Best Profitable Products</h5>
+          <div class="chart-box">
+            <canvas id="bestProfitableProductsChart"></canvas>
+          </div>
+
+          <div class="table-responsive mt-3">
+            <table class="table table-sm table-bordered">
+              <thead class="table-light">
+                <tr>
+                  <th>Product</th>
+                  <th>Gross Profit</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each bestProfitableProducts}}
+                <tr>
+                  <td>{{this.ProductName}}</td>
+                  <td>{{this.GrossProfit}}</td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+      <div class="card report-card">
+        <div class="card-body">
+          <h5>Sales by Store</h5>
+          <div class="chart-box">
+            <canvas id="salesByStoreChart"></canvas>
+          </div>
+
+          <div class="table-responsive mt-3">
+            <table class="table table-sm table-bordered">
+              <thead class="table-light">
+                <tr>
+                  <th>Store</th>
+                  <th>Total Sales</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each salesByStore}}
+                <tr>
+                  <td>{{this.StoreName}}</td>
+                  <td>{{this.TotalSales}}</td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+      <div class="card report-card">
+        <div class="card-body">
+          <h5>Monthly Profit Trend</h5>
+          <div class="chart-box">
+            <canvas id="monthlyProfitTrendChart"></canvas>
+          </div>
+
+          <div class="table-responsive mt-3">
+            <table class="table table-sm table-bordered">
+              <thead class="table-light">
+                <tr>
+                  <th>Month</th>
+                  <th>Gross Profit</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each monthlyProfitTrend}}
+                <tr>
+                  <td>{{this.SaleMonth}}</td>
+                  <td>{{this.GrossProfit}}</td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+      <div class="card report-card">
+        <div class="card-body">
+          <h5>Inventory Status</h5>
+          <div class="chart-box">
+            <canvas id="inventoryStatusChart"></canvas>
+          </div>
+
+          <div class="table-responsive mt-3">
+            <table class="table table-sm table-bordered">
+              <thead class="table-light">
+                <tr>
+                  <th>Status</th>
+                  <th>Total Items</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each inventoryStatus}}
+                <tr>
+                  <td>{{this.StockStatus}}</td>
+                  <td>{{this.TotalItems}}</td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-12 mb-4">
+      <div class="card report-card">
+        <div class="card-body">
+          <h5>Category Profitability</h5>
+          <div class="chart-box chart-box-wide">
+            <canvas id="categoryProfitabilityChart"></canvas>
+          </div>
+
+          <div class="table-responsive mt-3">
+            <table class="table table-sm table-bordered">
+              <thead class="table-light">
+                <tr>
+                  <th>Category</th>
+                  <th>Gross Profit</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each categoryProfitability}}
+                <tr>
+                  <td>{{this.CategoryName}}</td>
+                  <td>{{this.GrossProfit}}</td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h4>Store Profitability Table</h4>
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>Store</th>
+        <th>Sale Day</th>
+        <th>Net Sales</th>
+        <th>COGS</th>
+        <th>Gross Profit</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each reports}}
+      <tr>
+        <td>{{this.StoreName}}</td>
+        <td>{{this.SaleDay}}</td>
+        <td>{{this.NetSales}}</td>
+        <td>{{this.COGS}}</td>
+        <td>{{this.GrossProfit}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+  <h4 class="mt-5">Top Product Sales Table</h4>
+  <table class="table table-bordered">
+    <thead class="table-secondary">
+      <tr>
+        <th>Product</th>
+        <th>SKU</th>
+        <th>Total Qty Sold</th>
+        <th>Total Sales</th>
+        <th>Gross Profit</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each topProducts}}
+      <tr>
+        <td>{{this.ProductName}}</td>
+        <td>{{this.SKU}}</td>
+        <td>{{this.TotalQtySold}}</td>
+        <td>{{this.TotalSales}}</td>
+        <td>{{this.GrossProfit}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  {{!-- const reports = {{{reportsJson}}}； --}}
+  const bestProfitableProducts = {{{bestProfitableProductsJson}}};
+  const salesByStore = {{{salesByStoreJson}}};
+  const monthlyProfitTrend = {{{monthlyProfitTrendJson}}};
+  const inventoryStatus = {{{inventoryStatusJson}}};
+  const categoryProfitability = {{{categoryProfitabilityJson}}};
+
+  const commonOptions = {
+    responsive: true,
+    maintainAspectRatio: false
+  };
+
+  new Chart(document.getElementById('bestProfitableProductsChart'), {
+    type: 'bar',
+    data: {
+      labels: bestProfitableProducts.map(item => item.ProductName),
+      datasets: [{
+        label: 'Gross Profit',
+        data: bestProfitableProducts.map(item => item.GrossProfit),
+        backgroundColor: 'rgba(54, 162, 235, 0.7)',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      ...commonOptions,
+      scales: {
+        y: { beginAtZero: true }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('salesByStoreChart'), {
+    type: 'pie',
+    data: {
+      labels: salesByStore.map(item => item.StoreName),
+      datasets: [{
+        label: 'Total Sales',
+        data: salesByStore.map(item => item.TotalSales),
+        backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56', '#4BC0C0', '#9966FF']
+      }]
+    },
+    options: commonOptions
+  });
+
+  new Chart(document.getElementById('monthlyProfitTrendChart'), {
+    type: 'line',
+    data: {
+      labels: monthlyProfitTrend.map(item => item.SaleMonth),
+      datasets: [{
+        label: 'Gross Profit',
+        data: monthlyProfitTrend.map(item => item.GrossProfit),
+        borderColor: 'rgba(75, 192, 192, 1)',
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        fill: true,
+        tension: 0.3
+      }]
+    },
+    options: {
+      ...commonOptions,
+      scales: {
+        y: { beginAtZero: true }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('inventoryStatusChart'), {
+    type: 'doughnut',
+    data: {
+      labels: inventoryStatus.map(item => item.StockStatus),
+      datasets: [{
+        label: 'Inventory Status',
+        data: inventoryStatus.map(item => item.TotalItems),
+        backgroundColor: ['#28a745', '#dc3545', '#ffc107']
+      }]
+    },
+    options: commonOptions
+  });
+
+  new Chart(document.getElementById('categoryProfitabilityChart'), {
+    type: 'bar',
+    data: {
+      labels: categoryProfitability.map(item => item.CategoryName),
+      datasets: [{
+        label: 'Gross Profit',
+        data: categoryProfitability.map(item => item.GrossProfit),
+        backgroundColor: 'rgba(153, 102, 255, 0.7)',
+        borderColor: 'rgba(153, 102, 255, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      ...commonOptions,
+      indexAxis: 'y',
+      scales: {
+        x: { beginAtZero: true }
+      }
+    }
+  });
+</script>

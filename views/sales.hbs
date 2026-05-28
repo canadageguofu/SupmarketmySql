@@ -1,0 +1,76 @@
+<div class="container mt-2">
+  <h2>Sales Entry</h2>
+
+  <form action="/sales/add" method="POST" class="row g-3 mb-4">
+    <div class="col-md-3">
+      <label class="form-label">Store ID</label>
+      <input type="number" name="StoreID" class="form-control" required>
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">User ID</label>
+      <input type="number" name="UserID" class="form-control" required>
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Payment Method</label>
+      <select name="PaymentMethod" class="form-select">
+        <option>Cash</option>
+        <option>Card</option>
+        <option>Mobile</option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Tax Amount</label>
+      <input type="number" step="0.01" name="TaxAmount" class="form-control" value="0">
+    </div>
+
+    <div class="col-md-3">
+      <label class="form-label">Product ID</label>
+      <input type="number" name="ProductID" class="form-control" required>
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Quantity</label>
+      <input type="number" step="0.001" name="Quantity" class="form-control" required>
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Unit Price</label>
+      <input type="number" step="0.01" name="UnitPrice" class="form-control" required>
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Cost Price</label>
+      <input type="number" step="0.01" name="CostPrice" class="form-control" required>
+    </div>
+
+    <div class="col-md-3">
+      <label class="form-label">Discount</label>
+      <input type="number" step="0.01" name="DiscountAmount" class="form-control" value="0">
+    </div>
+
+    <div class="col-12">
+      <button type="submit" class="btn btn-success">Save Sale</button>
+    </div>
+  </form>
+
+  <h4>Recent Sales</h4>
+  <table class="table table-bordered">
+    <thead class="table-dark">
+      <tr>
+        <th>Sale ID</th>
+        <th>Store ID</th>
+        <th>Date</th>
+        <th>Net Amount</th>
+        <th>Payment</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each sales}}
+      <tr>
+        <td>{{this.SaleID}}</td>
+        <td>{{this.StoreID}}</td>
+        <td>{{this.SaleDate}}</td>
+        <td>{{this.NetAmount}}</td>
+        <td>{{this.PaymentMethod}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

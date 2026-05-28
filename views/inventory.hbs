@@ -1,0 +1,78 @@
+<div class="container mt-2">
+  <h2>Inventory</h2>
+
+  <form action="/inventory/add" method="POST" class="row g-3 mb-4">
+    <div class="col-md-2">
+      <label class="form-label">Store ID</label>
+      <input type="number" name="StoreID" class="form-control" required>
+    </div>
+    <div class="col-md-2">
+      <label class="form-label">Product ID</label>
+      <input type="number" name="ProductID" class="form-control" required>
+    </div>
+    <div class="col-md-2">
+      <label class="form-label">User ID</label>
+      <input type="number" name="UserID" class="form-control">
+    </div>
+    <div class="col-md-2">
+      <label class="form-label">Type</label>
+      <select name="MovementType" class="form-select">
+        <option value="IN">IN</option>
+        <option value="OUT">OUT</option>
+        <option value="ADJUSTMENT">ADJUSTMENT</option>
+        <option value="DAMAGE">DAMAGE</option>
+      </select>
+    </div>
+    <div class="col-md-2">
+      <label class="form-label">Quantity</label>
+      <input type="number" step="0.001" name="Quantity" class="form-control" required>
+    </div>
+    <div class="col-md-2">
+      <label class="form-label">Unit Cost</label>
+      <input type="number" step="0.01" name="UnitCost" class="form-control" value="0">
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">Reference No</label>
+      <input type="text" name="ReferenceNo" class="form-control">
+    </div>
+    <div class="col-md-8">
+      <label class="form-label">Notes</label>
+      <input type="text" name="Notes" class="form-control">
+    </div>
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">Save Movement</button>
+    </div>
+  </form>
+
+  <h4>Current Inventory</h4>
+  <table class="table table-striped table-bordered">
+    <thead class="table-dark">
+      <tr>
+        <th>Store</th>
+        <th>Product</th>
+        <th>SKU</th>
+        <th>Qty On Hand</th>
+        <th>Reorder Level</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each inventory}}
+      <tr>
+        <td>{{this.StoreName}}</td>
+        <td>{{this.ProductName}}</td>
+        <td>{{this.SKU}}</td>
+        <td>{{this.QuantityOnHand}}</td>
+        <td>{{this.ReorderLevel}}</td>
+        <td>
+          {{#if (eq this.StockStatus "LOW STOCK")}}
+            <span class="badge bg-danger">LOW STOCK</span>
+          {{else}}
+            <span class="badge bg-success">OK</span>
+          {{/if}}
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

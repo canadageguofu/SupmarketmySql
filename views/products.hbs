@@ -1,0 +1,100 @@
+<div class="container mt-2">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Products</h2>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">Add Product</button>
+  </div>
+
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>SKU</th>
+        <th>Product Name</th>
+        <th>Category</th>
+        <th>Supplier</th>
+        <th>Cost</th>
+        <th>Price</th>
+        <th>Reorder</th>
+        <th>Unit</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each products}}
+      <tr>
+        <td>{{this.ProductID}}</td>
+        <td>{{this.SKU}}</td>
+        <td>{{this.ProductName}}</td>
+        <td>{{this.CategoryName}}</td>
+        <td>{{this.SupplierName}}</td>
+        <td>{{this.CostPrice}}</td>
+        <td>{{this.SellingPrice}}</td>
+        <td>{{this.ReorderLevel}}</td>
+        <td>{{this.Unit}}</td>
+        <td>{{#if this.IsActive}}Active{{else}}Inactive{{/if}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+
+<div class="modal fade" id="addProductModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form action="/products/add" method="POST">
+        <div class="modal-header">
+          <h5 class="modal-title">Add Product</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body row g-3">
+          <div class="col-md-6">
+            <label class="form-label">SKU</label>
+            <input type="text" name="SKU" class="form-control" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Barcode</label>
+            <input type="text" name="Barcode" class="form-control">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Product Name</label>
+            <input type="text" name="ProductName" class="form-control" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Category ID</label>
+            <input type="number" name="CategoryID" class="form-control" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Supplier ID</label>
+            <input type="number" name="SupplierID" class="form-control">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Cost Price</label>
+            <input type="number" step="0.01" name="CostPrice" class="form-control" required>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Selling Price</label>
+            <input type="number" step="0.01" name="SellingPrice" class="form-control" required>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Reorder Level</label>
+            <input type="number" name="ReorderLevel" class="form-control" required>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Unit</label>
+            <input type="text" name="Unit" class="form-control" value="pcs">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Perishable</label>
+            <select name="IsPerishable" class="form-select">
+              <option value="0">No</option>
+              <option value="1">Yes</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-success" type="submit">Save Product</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
