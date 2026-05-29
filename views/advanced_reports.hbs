@@ -1,0 +1,368 @@
+<div class="container mt-3">
+  <h2>Advanced Retail Analytics</h2>
+
+  <div class="row">
+    <div class="col-md-6 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <h5>Sales Per Square Foot</h5>
+          <div class="chart-box"><canvas id="salesPerSquareFootChart"></canvas></div>
+          <table class="table table-sm table-bordered mt-3">
+            <thead><tr><th>Store</th><th>Sales/Sq Ft</th></tr></thead>
+            <tbody>
+              {{#each salesPerSquareFoot}}
+              <tr><td>{{this.StoreName}}</td><td>{{this.SalesPerSquareFoot}}</td></tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <h5>GMROI</h5>
+          <div class="chart-box"><canvas id="gmroiChart"></canvas></div>
+          <table class="table table-sm table-bordered mt-3">
+            <thead><tr><th>Product</th><th>GMROI</th></tr></thead>
+            <tbody>
+              {{#each gmroi}}
+              <tr><td>{{this.ProductName}}</td><td>{{this.GMROI}}</td></tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <h5>Inventory Turnover</h5>
+          <div class="chart-box"><canvas id="inventoryTurnoverChart"></canvas></div>
+          <table class="table table-sm table-bordered mt-3">
+            <thead><tr><th>Product</th><th>Turnover</th></tr></thead>
+            <tbody>
+              {{#each inventoryTurnover}}
+              <tr><td>{{this.ProductName}}</td><td>{{this.InventoryTurnoverRate}}</td></tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <h5>Average Transaction Value</h5>
+          <div class="chart-box"><canvas id="atvChart"></canvas></div>
+          <table class="table table-sm table-bordered mt-3">
+            <thead><tr><th>Day</th><th>ATV</th></tr></thead>
+            <tbody>
+              {{#each atv}}
+              <tr><td>{{this.SaleDay}}</td><td>{{this.ATV}}</td></tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <h5>Basket Size</h5>
+          <div class="chart-box"><canvas id="basketSizeChart"></canvas></div>
+          <table class="table table-sm table-bordered mt-3">
+            <thead><tr><th>Day</th><th>Basket Size</th></tr></thead>
+            <tbody>
+              {{#each basketSize}}
+              <tr><td>{{this.SaleDay}}</td><td>{{this.BasketSize}}</td></tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <h5>Conversion Rate</h5>
+          <div class="chart-box"><canvas id="conversionRateChart"></canvas></div>
+          <table class="table table-sm table-bordered mt-3">
+            <thead><tr><th>Store</th><th>Date</th><th>Rate</th></tr></thead>
+            <tbody>
+              {{#each conversionRate}}
+              <tr><td>{{this.StoreName}}</td><td>{{this.TrafficDate}}</td><td>{{this.ConversionRate}}</td></tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <h5>Shrinkage Rate</h5>
+          <div class="chart-box"><canvas id="shrinkageRateChart"></canvas></div>
+          <table class="table table-sm table-bordered mt-3">
+            <thead><tr><th>Store</th><th>Shrinkage Rate</th></tr></thead>
+            <tbody>
+              {{#each shrinkageRate}}
+              <tr><td>{{this.StoreName}}</td><td>{{this.ShrinkageRate}}</td></tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <h5>Customer Retention</h5>
+          <table class="table table-bordered mt-3">
+            <thead><tr><th>Returning Customers</th><th>Total Customers</th><th>Retention Rate</th></tr></thead>
+            <tbody>
+              {{#each customerRetention}}
+              <tr>
+                <td>{{this.ReturningCustomers}}</td>
+                <td>{{this.TotalCustomers}}</td>
+                <td>{{this.RetentionRate}}</td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-12 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <h5>Market Basket Analysis</h5>
+          <div class="chart-box"><canvas id="marketBasketChart"></canvas></div>
+          <table class="table table-sm table-bordered mt-3">
+            <thead><tr><th>Product A</th><th>Product B</th><th>Together Count</th></tr></thead>
+            <tbody>
+              {{#each marketBasket}}
+              <tr>
+                <td>{{this.ProductAName}}</td>
+                <td>{{this.ProductBName}}</td>
+                <td>{{this.TimesBoughtTogether}}</td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-12 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <h5>Space / Facing / Stock Profitability</h5>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="chart-box"><canvas id="spaceProfitabilityChart"></canvas></div>
+            </div>
+            <div class="col-md-4">
+              <div class="chart-box"><canvas id="faceProfitChart"></canvas></div>
+            </div>
+            <div class="col-md-4">
+              <div class="chart-box"><canvas id="stockProfitabilityChart"></canvas></div>
+            </div>
+          </div>
+
+          <h6 class="mt-4">Shelf Space Returns</h6>
+          <div class="chart-box"><canvas id="shelfSpaceReturnsChart"></canvas></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const salesPerSquareFoot = {{{salesPerSquareFootJson}}};
+  const gmroi = {{{gmroiJson}}};
+  const inventoryTurnover = {{{inventoryTurnoverJson}}};
+  const atv = {{{atvJson}}};
+  const basketSize = {{{basketSizeJson}}};
+  const conversionRate = {{{conversionRateJson}}};
+  const shrinkageRate = {{{shrinkageRateJson}}};
+  const marketBasket = {{{marketBasketJson}}};
+  const spaceProfitability = {{{spaceProfitabilityJson}}};
+  const faceProfit = {{{faceProfitJson}}};
+  const stockProfitability = {{{stockProfitabilityJson}}};
+  const shelfSpaceReturns = {{{shelfSpaceReturnsJson}}};
+
+  const commonOptions = { responsive: true, maintainAspectRatio: false };
+
+  new Chart(document.getElementById("salesPerSquareFootChart"), {
+    type: "bar",
+    data: {
+      labels: salesPerSquareFoot.map(x => x.StoreName),
+      datasets: [{
+        label: "Sales Per Sq Ft",
+        data: salesPerSquareFoot.map(x => x.SalesPerSquareFoot),
+        backgroundColor: "rgba(54,162,235,0.7)"
+      }]
+    },
+    options: commonOptions
+  });
+
+  new Chart(document.getElementById("gmroiChart"), {
+    type: "bar",
+    data: {
+      labels: gmroi.map(x => x.ProductName),
+      datasets: [{
+        label: "GMROI",
+        data: gmroi.map(x => x.GMROI),
+        backgroundColor: "rgba(75,192,192,0.7)"
+      }]
+    },
+    options: commonOptions
+  });
+
+  new Chart(document.getElementById("inventoryTurnoverChart"), {
+    type: "bar",
+    data: {
+      labels: inventoryTurnover.map(x => x.ProductName),
+      datasets: [{
+        label: "Inventory Turnover",
+        data: inventoryTurnover.map(x => x.InventoryTurnoverRate),
+        backgroundColor: "rgba(255,159,64,0.7)"
+      }]
+    },
+    options: commonOptions
+  });
+
+  new Chart(document.getElementById("atvChart"), {
+    type: "line",
+    data: {
+      labels: atv.map(x => x.SaleDay),
+      datasets: [{
+        label: "ATV",
+        data: atv.map(x => x.ATV),
+        borderColor: "rgba(153,102,255,1)",
+        backgroundColor: "rgba(153,102,255,0.2)",
+        fill: true
+      }]
+    },
+    options: commonOptions
+  });
+
+  new Chart(document.getElementById("basketSizeChart"), {
+    type: "line",
+    data: {
+      labels: basketSize.map(x => x.SaleDay),
+      datasets: [{
+        label: "Basket Size",
+        data: basketSize.map(x => x.BasketSize),
+        borderColor: "rgba(255,99,132,1)",
+        backgroundColor: "rgba(255,99,132,0.2)",
+        fill: true
+      }]
+    },
+    options: commonOptions
+  });
+
+  new Chart(document.getElementById("conversionRateChart"), {
+    type: "bar",
+    data: {
+      labels: conversionRate.map(x => `${x.StoreName} ${x.TrafficDate}`),
+      datasets: [{
+        label: "Conversion Rate",
+        data: conversionRate.map(x => x.ConversionRate),
+        backgroundColor: "rgba(255,206,86,0.7)"
+      }]
+    },
+    options: commonOptions
+  });
+
+  new Chart(document.getElementById("shrinkageRateChart"), {
+    type: "bar",
+    data: {
+      labels: shrinkageRate.map(x => x.StoreName),
+      datasets: [{
+        label: "Shrinkage Rate",
+        data: shrinkageRate.map(x => x.ShrinkageRate),
+        backgroundColor: "rgba(220,53,69,0.7)"
+      }]
+    },
+    options: commonOptions
+  });
+
+  new Chart(document.getElementById("marketBasketChart"), {
+    type: "bar",
+    data: {
+      labels: marketBasket.map(x => `${x.ProductAName} + ${x.ProductBName}`),
+      datasets: [{
+        label: "Bought Together",
+        data: marketBasket.map(x => x.TimesBoughtTogether),
+        backgroundColor: "rgba(40,167,69,0.7)"
+      }]
+    },
+    options: {
+      ...commonOptions,
+      indexAxis: "y"
+    }
+  });
+
+  new Chart(document.getElementById("spaceProfitabilityChart"), {
+    type: "bar",
+    data: {
+      labels: spaceProfitability.map(x => x.ProductName),
+      datasets: [{
+        label: "Space Profitability",
+        data: spaceProfitability.map(x => x.SpaceProfitability),
+        backgroundColor: "rgba(13,110,253,0.7)"
+      }]
+    },
+    options: commonOptions
+  });
+
+  new Chart(document.getElementById("faceProfitChart"), {
+    type: "bar",
+    data: {
+      labels: faceProfit.map(x => x.ProductName),
+      datasets: [{
+        label: "Face Profit",
+        data: faceProfit.map(x => x.FaceProfit),
+        backgroundColor: "rgba(111,66,193,0.7)"
+      }]
+    },
+    options: commonOptions
+  });
+
+  new Chart(document.getElementById("stockProfitabilityChart"), {
+    type: "bar",
+    data: {
+      labels: stockProfitability.map(x => x.ProductName),
+      datasets: [{
+        label: "Stock Profitability",
+        data: stockProfitability.map(x => x.StockProfitability),
+        backgroundColor: "rgba(32,201,151,0.7)"
+      }]
+    },
+    options: commonOptions
+  });
+
+  new Chart(document.getElementById("shelfSpaceReturnsChart"), {
+    type: "bar",
+    data: {
+      labels: shelfSpaceReturns.map(x => x.ProductName),
+      datasets: [{
+        label: "Shelf Space Returns",
+        data: shelfSpaceReturns.map(x => x.ShelfSpaceReturns),
+        backgroundColor: "rgba(255,193,7,0.7)"
+      }]
+    },
+    options: commonOptions
+  });
+</script>

@@ -10,6 +10,7 @@ const productRoutes = require("./routes/products");
 const salesRoutes = require("./routes/sales");
 const inventoryRoutes = require("./routes/inventory");
 const reportRoutes = require("./routes/reports");
+const advancedReportRoutes = require("./routes/advanced_reports");
 
 const app = express();
 
@@ -51,6 +52,7 @@ app.use("/products", productRoutes);
 app.use("/sales", salesRoutes);
 app.use("/inventory", inventoryRoutes);
 app.use("/reports", reportRoutes);
+app.use("/advanced-reports", advancedReportRoutes);
 
 app.use((req, res) => {
   res.status(404).send("Page not found");
