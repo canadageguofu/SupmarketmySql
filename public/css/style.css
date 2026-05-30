@@ -10,18 +10,9 @@ body {
 .table td {
   vertical-align: middle;
 }
-
-.report-card {
-  height: 100%;
-}
-
 .chart-box {
   position: relative;
-  height: 320px;
   width: 100%;
-}
-
-.chart-box-wide {
   height: 320px;
 }
 
@@ -30,12 +21,11 @@ canvas {
   height: 100% !important;
 }
 
-.card h5 {
-  margin-bottom: 20px;
-  font-weight: 600;
+.report-card,
+.card {
+  height: 100%;
 }
 
-.table-sm td,
-.table-sm th {
-  font-size: 0.9rem;
+.list-group-item-action:hover {
+  background-color: #f1f3f5;
 }

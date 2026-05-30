@@ -1,5 +1,42 @@
 <div class="container mt-3">
   <h2>Advanced Retail Analytics</h2>
+  <div class="row mb-4">
+  <div class="col-md-3 mb-3">
+    <div class="card text-bg-primary">
+      <div class="card-body">
+        <h6>Stores Measured</h6>
+        <h3>{{salesPerSquareFoot.length}}</h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3 mb-3">
+    <div class="card text-bg-success">
+      <div class="card-body">
+        <h6>Top GMROI Products</h6>
+        <h3>{{gmroi.length}}</h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3 mb-3">
+    <div class="card text-bg-warning">
+      <div class="card-body">
+        <h6>Basket Pairs Found</h6>
+        <h3>{{marketBasket.length}}</h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3 mb-3">
+    <div class="card text-bg-danger">
+      <div class="card-body">
+        <h6>Shrinkage Stores</h6>
+        <h3>{{shrinkageRate.length}}</h3>
+      </div>
+    </div>
+  </div>
+</div>
 
   <div class="row">
     <div class="col-md-6 mb-4">
@@ -184,6 +221,102 @@
       </div>
     </div>
   </div>
+  <div class="col-md-12 mb-4">
+  <div class="card">
+    <div class="card-body">
+      <h5>Profit Share Ratio</h5>
+      <div class="chart-box"><canvas id="profitShareRatioChart"></canvas></div>
+      <table class="table table-sm table-bordered mt-3">
+        <thead>
+          <tr>
+            <th>Store</th>
+            <th>Product</th>
+            <th>Facings Share</th>
+            <th>Profit Share</th>
+            <th>Profit Share Ratio</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each profitShareRatio}}
+          <tr>
+            <td>{{this.StoreName}}</td>
+            <td>{{this.ProductName}}</td>
+            <td>{{this.FacingsShare}}</td>
+            <td>{{this.ProfitShare}}</td>
+            <td>{{this.ProfitShareRatio}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="col-md-12 mb-4">
+  <div class="card">
+    <div class="card-body">
+      <h5>Shelf Elasticity</h5>
+      <div class="chart-box"><canvas id="shelfElasticityChart"></canvas></div>
+      <table class="table table-sm table-bordered mt-3">
+        <thead>
+          <tr>
+            <th>Store</th>
+            <th>Product</th>
+            <th>Previous Space</th>
+            <th>Current Space</th>
+            <th>Previous GMROS</th>
+            <th>Current GMROS</th>
+            <th>Elasticity</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each shelfElasticity}}
+          <tr>
+            <td>{{this.StoreName}}</td>
+            <td>{{this.ProductName}}</td>
+            <td>{{this.PrevShelfSpace}}</td>
+            <td>{{this.ShelfSpaceLinearMeters}}</td>
+            <td>{{this.PrevGMROS}}</td>
+            <td>{{this.GMROS}}</td>
+            <td>{{this.Elasticity}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="col-md-12 mb-4">
+  <div class="card">
+    <div class="card-body">
+      <h5>Store Net Profit</h5>
+      <div class="chart-box"><canvas id="storeNetProfitChart"></canvas></div>
+      <table class="table table-sm table-bordered mt-3">
+        <thead>
+          <tr>
+            <th>Store</th>
+            <th>Sales</th>
+            <th>COGS</th>
+            <th>Expenses</th>
+            <th>Net Profit</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each storeNetProfit}}
+          <tr>
+            <td>{{this.StoreName}}</td>
+            <td>{{this.Sales}}</td>
+            <td>{{this.COGS}}</td>
+            <td>{{this.Expenses}}</td>
+            <td>{{this.NetProfit}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -365,4 +498,52 @@
     },
     options: commonOptions
   });
+  const profitShareRatio = {{{profitShareRatioJson}}};
+const shelfElasticity = {{{shelfElasticityJson}}};
+const storeNetProfit = {{{storeNetProfitJson}}};
+
+new Chart(document.getElementById("profitShareRatioChart"), {
+  type: "bar",
+  data: {
+    labels: profitShareRatio.map(x => `${x.StoreName} - ${x.ProductName}`),
+    datasets: [{
+      label: "Profit Share Ratio",
+      data: profitShareRatio.map(x => x.ProfitShareRatio),
+      backgroundColor: "rgba(220,53,69,0.7)"
+    }]
+  },
+  options: {
+    ...commonOptions,
+    indexAxis: "y"
+  }
+});
+
+new Chart(document.getElementById("shelfElasticityChart"), {
+  type: "bar",
+  data: {
+    labels: shelfElasticity.map(x => `${x.StoreName} - ${x.ProductName}`),
+    datasets: [{
+      label: "Elasticity",
+      data: shelfElasticity.map(x => x.Elasticity),
+      backgroundColor: "rgba(13,202,240,0.7)"
+    }]
+  },
+  options: {
+    ...commonOptions,
+    indexAxis: "y"
+  }
+});
+
+new Chart(document.getElementById("storeNetProfitChart"), {
+  type: "bar",
+  data: {
+    labels: storeNetProfit.map(x => x.StoreName),
+    datasets: [{
+      label: "Net Profit",
+      data: storeNetProfit.map(x => x.NetProfit),
+      backgroundColor: "rgba(25,135,84,0.7)"
+    }]
+  },
+  options: commonOptions
+});
 </script>

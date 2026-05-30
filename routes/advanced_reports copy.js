@@ -60,21 +60,6 @@ router.get("/", ensureAuthenticated, async (req, res) => {
       SELECT * FROM vw_ShelfSpaceReturns ORDER BY ShelfSpaceReturns DESC LIMIT 20
     `);
 
-    const [profitShareRatio] = await pool.query(`
-      SELECT * FROM vw_ProfitShareRatio ORDER BY ProfitShareRatio DESC LIMIT 20
-    `);
-
-    const [shelfElasticity] = await pool.query(`
-      SELECT * FROM vw_ShelfElasticity
-      WHERE Elasticity IS NOT NULL
-      ORDER BY Elasticity DESC
-      LIMIT 20
-    `);
-
-    const [storeNetProfit] = await pool.query(`
-      SELECT * FROM vw_StoreNetProfit ORDER BY NetProfit DESC
-    `);
-
     res.render("advanced_reports", {
       title: "Advanced Retail Analytics",
       user: req.session.user,
@@ -92,9 +77,6 @@ router.get("/", ensureAuthenticated, async (req, res) => {
       faceProfit,
       stockProfitability,
       shelfSpaceReturns,
-      profitShareRatio,
-      shelfElasticity,
-      storeNetProfit,
 
       salesPerSquareFootJson: JSON.stringify(salesPerSquareFoot),
       gmroiJson: JSON.stringify(gmroi),
@@ -107,10 +89,7 @@ router.get("/", ensureAuthenticated, async (req, res) => {
       spaceProfitabilityJson: JSON.stringify(spaceProfitability),
       faceProfitJson: JSON.stringify(faceProfit),
       stockProfitabilityJson: JSON.stringify(stockProfitability),
-      shelfSpaceReturnsJson: JSON.stringify(shelfSpaceReturns),
-      profitShareRatioJson: JSON.stringify(profitShareRatio),
-      shelfElasticityJson: JSON.stringify(shelfElasticity),
-      storeNetProfitJson: JSON.stringify(storeNetProfit)
+      shelfSpaceReturnsJson: JSON.stringify(shelfSpaceReturns)
     });
   } catch (err) {
     console.error(err);
